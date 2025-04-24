@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">LocationTracker</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="provider_enabled">The provider %s is now enabled</string>
+    <string name="provider_disabled">The provider %s is now disabled</string>
+    <string name="provider_new_status">The provider %1$s has now a new status %2$s</string>
+    <string name="new_location">Latitude: %.5f, Longitude: %.5f, Altitude: %.2f, Précision: %.2f</string>
+    <string name="google_maps_key">PUT HERE YOUR API KEY</string>
+</resources>
