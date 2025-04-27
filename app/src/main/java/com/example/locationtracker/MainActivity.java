@@ -15,10 +15,13 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.Menu;
 import android.widget.Button;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -26,7 +29,6 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private final String insertUrl = "http://192.168.1.174/LocationTrackingBackend/src/api/createPosition.php";
     private LocationManager locationManager;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +53,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         requestQueue = Volley.newRequestQueue(this);
 
-        // Request READ_PHONE_STATE permission if needed
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.READ_PHONE_STATE},
                     PERMISSION_REQUEST_READ_PHONE_STATE);
         }
+
+        //toolbar = findViewById(R.id.toolbar);
+
+        //setSupportActionBar(toolbar);
+        //getSupportActionBar().setTitle("Maps");
 
         Button btnMap = findViewById(R.id.btnShowMap);
         btnMap.setOnClickListener(v -> startActivity(new Intent(this, MapsActivity.class)));
@@ -71,6 +78,12 @@ public class MainActivity extends AppCompatActivity {
             startLocationUpdates();
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
     }
 
     private void checkLocationPermissions() {
